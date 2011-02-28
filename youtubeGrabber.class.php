@@ -23,7 +23,7 @@ class youtubeGrabber
     public function __construct()
     {
         $this->fileName = "video"; //defualt name
-        $this->format = array('mp4' =>'18', 'flv_high'=>'34', 'flv_low'=>'5'); // file formats
+        $this->types = array('mp4' =>'18', 'flv_high'=>'34', 'flv_low'=>'5'); // file formats
         $this->youtubeBase = 'http://www.youtube.com/watch?v='; //base youtube url
         $this->youtubeBaseCall = 'http://www.youtube.com/get_video_info?video_id='; //base callback url
     }
@@ -95,19 +95,21 @@ class youtubeGrabber
 	{
 		preg_match('/fmt_url_map=(.*)[&]/',$content,$tempurls);
 		$urlpayload = urldecode($tempurls[1]);
-		$possible_urls = array();
+		$youtubeURL = '';
 		$urls = preg_split('/,/', $urlpayload);
 		for ($i = 0; $i < count($urls);$i++)
 		{
 			preg_match('/^[0-9]+\|(.*)/', $urls[$i], $url);
 			$type = preg_split('/\|/',$url[0]);
 			echo "t: " . $type[0] . "\n";
-			if ($type)
-			//get first rfew charecters of each url and check number;
-			$possible_urls[$i] = $url[1];
+			echo "f: " . $this->format . "\n";
+			if ($type[0] == $this->format) 
+			{
+				$youtubeURL = $url[1];
+				break;
+			}
 		}
-
-		return $possible_urls[1];
+		return $youtubeURL;
 	}
 	
 }

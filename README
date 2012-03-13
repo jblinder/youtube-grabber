@@ -1,0 +1,18 @@
+YoutubeGrabber is a simple class for parsing and downloading videos from YouTube. 
+(updated to work with Youtube's fmt_url_map parameter)
+
+Basic Usage:
+	require_once("youtubeGrabber.class.php"); 
+	$you = new youtubeGrabber();
+
+  // specify the destination video format 
+	$you->format("mp4");     
+
+  // specify the destination filepath (defaults to the same directory of downloader class)
+	$you->filepath("");      
+
+  // specify the destination filename
+	$you->filename("cat");   
+
+  // pass in the youtube url that you want to download 
+	$you->download("http://www.youtube.com/watch?v=J---aiyznGQ"); 
